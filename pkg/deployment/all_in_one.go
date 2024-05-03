@@ -58,9 +58,9 @@ func (a *AllInOne) Get() *appsv1.Deployment {
 	}
 
 	commonSpec := util.Merge([]v1.JaegerCommonSpec{a.jaeger.Spec.AllInOne.JaegerCommonSpec, a.jaeger.Spec.JaegerCommonSpec, baseCommonSpec})
-	_, ok := commonSpec.Annotations["sidecar.istio.io/inject"]
+	_, ok := commonSpec.Labels["sidecar.istio.io/inject"]
 	if !ok {
-		commonSpec.Annotations["sidecar.istio.io/inject"] = "false"
+		commonSpec.Labels["sidecar.istio.io/inject"] = "false"
 	}
 
 	options := util.AllArgs(a.jaeger.Spec.AllInOne.Options,

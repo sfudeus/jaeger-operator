@@ -76,9 +76,9 @@ func (a *Agent) Get() *appsv1.DaemonSet {
 	}
 
 	commonSpec := util.Merge([]v1.JaegerCommonSpec{a.jaeger.Spec.Agent.JaegerCommonSpec, a.jaeger.Spec.JaegerCommonSpec, baseCommonSpec})
-	_, ok := commonSpec.Annotations["sidecar.istio.io/inject"]
+	_, ok := commonSpec.Labels["sidecar.istio.io/inject"]
 	if !ok {
-		commonSpec.Annotations["sidecar.istio.io/inject"] = "false"
+		commonSpec.Labels["sidecar.istio.io/inject"] = "false"
 	}
 
 	ca.Update(a.jaeger, commonSpec)
